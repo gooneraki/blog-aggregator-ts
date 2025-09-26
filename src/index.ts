@@ -1,9 +1,8 @@
-import { setUser, readConfig } from "./config";
-
+import { readConfig, setUser } from "./config";
 function main() {
   setUser("gooneraki");
-  const config = readConfig();
-  console.log("Config contents:", config);
+  const cfg = readConfig();
+  console.log(cfg);
 }
 
 main();

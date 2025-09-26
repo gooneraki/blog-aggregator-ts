@@ -1,5 +1,9 @@
+import { setUser, readConfig } from "./config";
+
 function main() {
-  console.log("Hello, world!");
+  setUser("gooneraki");
+  const config = readConfig();
+  console.log("Config contents:", config);
 }
 
 main();

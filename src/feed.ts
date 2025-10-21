@@ -20,16 +20,20 @@ export async function fetchFeed(feedURL: string): Promise<RSSFeed> {
   const response = await fetch(feedURL, {
     headers: {
       "User-Agent": "gator",
+      accept: "application/rss+xml",
     },
   });
+  if (!response.ok) {
+    throw new Error(
+      `failed to fetch feed: ${response.status} ${response.statusText}`
+    );
+  }
 
   const XMLdata = await response.text();
-
   const parser = new XMLParser();
   const parsedData = parser.parse(XMLdata);
 
-  // Extract the RSS feed - the structure is typically { rss: { channel: {...} } }
-  const jObj: RSSFeed = parsedData.rss || parsedData;
+  const jObj: RSSFeed = parsedData.rss;
 
   if (typeof jObj !== "object" || !jObj.channel) {
     throw new Error(

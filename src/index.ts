@@ -4,7 +4,7 @@ import {
   runCommand,
 } from "./commands/commands";
 import { handlerReset } from "./commands/reset";
-import { handlerLogin, handlerRegister } from "./commands/users";
+import { handlerLogin, handlerRegister, handlerUsers } from "./commands/users";
 
 async function main() {
   // Create command registry
@@ -14,6 +14,8 @@ async function main() {
   registerCommand(commandsRegistry, "login", handlerLogin);
   registerCommand(commandsRegistry, "register", handlerRegister);
   registerCommand(commandsRegistry, "reset", handlerReset);
+  registerCommand(commandsRegistry, "reset", handlerReset);
+  registerCommand(commandsRegistry, "users", handlerUsers);
 
   // Get command-line arguments (skip first 2: node and script path)
   const args = process.argv.slice(2);

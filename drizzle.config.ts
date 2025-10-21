@@ -1,10 +1,13 @@
 import { defineConfig } from "drizzle-kit";
+import { readConfig } from "./src/config";
+
+const config = readConfig();
 
 export default defineConfig({
-  schema: "src/lib/db/schema.ts",
-  out: "src/lib/db/migrations",
+  schema: "./src/lib/db/schema.ts",
+  out: "./src/lib/db/migrations",
   dialect: "postgresql",
   dbCredentials: {
-    url: "postgres://postgres:postgres@localhost:5432/gator_ts?sslmode=disable",
+    url: config.dbUrl,
   },
 });

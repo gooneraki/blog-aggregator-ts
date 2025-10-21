@@ -1,9 +1,9 @@
 import {
   CommandsRegistry,
-  handlerLogin,
   registerCommand,
   runCommand,
-} from "./commands";
+} from "./commands/commands";
+import { handlerLogin } from "./commands/users";
 
 function main() {
   // Create command registry

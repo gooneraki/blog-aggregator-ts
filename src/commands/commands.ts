@@ -1,19 +1,8 @@
-import { setUser } from "./config";
+import { setUser } from "../config";
 
 type CommandHandler = (cmdName: string, ...args: string[]) => void;
 
 export type CommandsRegistry = Record<string, CommandHandler>;
-
-export function handlerLogin(cmdName: string, ...args: string[]) {
-  if (args.length === 0) {
-    throw new Error("Need argument");
-  }
-
-  const username = args[0];
-  setUser(username);
-
-  console.log(`User has been set ${username}`);
-}
 
 export function registerCommand(
   registry: CommandsRegistry,
@@ -21,7 +10,6 @@ export function registerCommand(
   handler: CommandHandler
 ) {
   registry[cmdName] = handler;
-  return registry;
 }
 
 export function runCommand(

@@ -1,11 +1,39 @@
+import { createUser, getUserByName } from "../lib/db/queries/users";
 import { setUser } from "../config";
 
-export function handlerLogin(cmdName: string, ...args: string[]) {
+export async function handlerLogin(cmdName: string, ...args: string[]) {
+  if (args.length !== 1) {
+    throw new Error(`usage: ${cmdName} <name>`);
+  }
+
+  const username = args[0];
+  const user = await getUserByName(username);
+  if (!user) {
+    throw new Error(`couldnt get user ${username}`);
+  }
+
+  setUser(username);
+  console.log("User switched successfully!");
+}
+
+export async function handlerRegister(cmdName: string, ...args: string[]) {
   if (args.length !== 1) {
     throw new Error(`usage: ${cmdName} <name>`);
   }
 
   const userName = args[0];
+
+  // Check if user already exists
+  const existingUser = await getUserByName(userName);
+  if (existingUser) {
+    throw new Error(`user ${userName} already exists`);
+  }
+
+  const user = await createUser(userName);
+  if (!user) {
+    throw new Error("couldnt create user");
+  }
+
   setUser(userName);
-  console.log("User switched successfully!");
+  console.log(`User ${userName} created successfully!`);
 }

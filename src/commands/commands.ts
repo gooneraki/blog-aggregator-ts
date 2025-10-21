@@ -1,6 +1,4 @@
-import { setUser } from "../config";
-
-type CommandHandler = (cmdName: string, ...args: string[]) => void;
+type CommandHandler = (cmdName: string, ...args: string[]) => Promise<void>;
 
 export type CommandsRegistry = Record<string, CommandHandler>;
 
@@ -12,7 +10,7 @@ export function registerCommand(
   registry[cmdName] = handler;
 }
 
-export function runCommand(
+export async function runCommand(
   registry: CommandsRegistry,
   cmdName: string,
   ...args: string[]
@@ -23,5 +21,5 @@ export function runCommand(
     throw new Error(`Command "${cmdName}" not found`);
   }
 
-  handler(cmdName, ...args);
+  await handler(cmdName, ...args);
 }

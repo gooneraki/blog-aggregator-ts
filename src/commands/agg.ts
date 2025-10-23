@@ -42,7 +42,7 @@ async function scrapeFeeds() {
     return;
   }
   console.log(`Found a feed to fetch!`);
-  scrapeFeed(feed);
+  await scrapeFeed(feed);
 }
 
 async function scrapeFeed(feed: Feed) {

@@ -1,20 +1,16 @@
-import { getUser, getUserById } from "../lib/db/queries/users";
-import { readConfig } from "../config";
+import { getUserById } from "../lib/db/queries/users";
 import { createFeed, getFeeds } from "../lib/db/queries/feeds";
 import { Feed, User } from "../lib/db/schema";
-
 import { printFeedFollow } from "./feed-follows";
 import { createFeedFollow } from "../lib/db/queries/feed-follows";
 
-export async function handlerAddfeed(cmdName: string, ...args: string[]) {
+export async function handlerAddFeed(
+  cmdName: string,
+  user: User,
+  ...args: string[]
+) {
   if (args.length !== 2) {
     throw new Error(`usage: ${cmdName} <name> <url>`);
-  }
-
-  const username = readConfig().currentUserName;
-  const user = await getUser(username);
-  if (!user) {
-    throw new Error(`couldnt get user ${username}`);
   }
 
   const name = args[0];

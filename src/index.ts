@@ -1,12 +1,13 @@
 import {
   CommandsRegistry,
+  middlewareLoggedIn,
   registerCommand,
   runCommand,
 } from "./commands/commands";
 import { handlerReset } from "./commands/reset";
 import { handlerAgg } from "./commands/agg";
 import { handlerLogin, handlerRegister, handlerUsers } from "./commands/users";
-import { handlerAddfeed, handlerListFeeds } from "./commands/feeds";
+import { handlerAddFeed, handlerListFeeds } from "./commands/feeds";
 import { handlerFollow, handlerListFeedFollows } from "./commands/feed-follows";
 
 async function main() {
@@ -19,10 +20,22 @@ async function main() {
   registerCommand(commandsRegistry, "reset", handlerReset);
   registerCommand(commandsRegistry, "users", handlerUsers);
   registerCommand(commandsRegistry, "agg", handlerAgg);
-  registerCommand(commandsRegistry, "addfeed", handlerAddfeed);
+  registerCommand(
+    commandsRegistry,
+    "addfeed",
+    middlewareLoggedIn(handlerAddFeed)
+  );
   registerCommand(commandsRegistry, "feeds", handlerListFeeds);
-  registerCommand(commandsRegistry, "follow", handlerFollow);
-  registerCommand(commandsRegistry, "following", handlerListFeedFollows);
+  registerCommand(
+    commandsRegistry,
+    "follow",
+    middlewareLoggedIn(handlerFollow)
+  );
+  registerCommand(
+    commandsRegistry,
+    "following",
+    middlewareLoggedIn(handlerListFeedFollows)
+  );
 
   // Get command-line arguments (skip first 2: node and script path)
   const args = process.argv.slice(2);

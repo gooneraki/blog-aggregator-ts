@@ -24,20 +24,23 @@ export async function handlerAddfeed(cmdName: string, ...args: string[]) {
   printFeed(feed, user);
 }
 
-export async function handlerFeeds(cmdName: string, ...args: string[]) {
-  if (args.length !== 0) {
-    throw new Error(`usage: ${cmdName}`);
-  }
-
+export async function handlerListFeeds(_: string) {
   const feeds = await getFeeds();
 
-  for (const feed of feeds) {
+  if (feeds.length === 0) {
+    console.log(`No feeds found.`);
+    return;
+  }
+
+  console.log(`Found %d feeds:\n`, feeds.length);
+  for (let feed of feeds) {
     const user = await getUserById(feed.userId);
     if (!user) {
-      throw new Error(`couldnt get user of feed ${feed.userId}`);
+      throw new Error(`Failed to find user for feed ${feed.id}`);
     }
 
     printFeed(feed, user);
+    console.log(`=====================================`);
   }
 }
 

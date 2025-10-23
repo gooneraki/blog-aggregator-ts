@@ -6,7 +6,7 @@ import {
 import { handlerReset } from "./commands/reset";
 import { handlerAgg } from "./commands/agg";
 import { handlerLogin, handlerRegister, handlerUsers } from "./commands/users";
-import { handlerAddfeed, handlerFeeds } from "./commands/feeds";
+import { handlerAddfeed, handlerListFeeds } from "./commands/feeds";
 
 async function main() {
   // Create command registry
@@ -19,7 +19,7 @@ async function main() {
   registerCommand(commandsRegistry, "users", handlerUsers);
   registerCommand(commandsRegistry, "agg", handlerAgg);
   registerCommand(commandsRegistry, "addfeed", handlerAddfeed);
-  registerCommand(commandsRegistry, "feeds", handlerFeeds);
+  registerCommand(commandsRegistry, "feeds", handlerListFeeds);
 
   // Get command-line arguments (skip first 2: node and script path)
   const args = process.argv.slice(2);

@@ -15,6 +15,20 @@
       "when": 1761127280950,
       "tag": "0001_exotic_hawkeye",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1761205553369,
+      "tag": "0002_lush_falcon",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1761207166887,
+      "tag": "0003_wild_mercury",
+      "breakpoints": true
     }
   ]
 }

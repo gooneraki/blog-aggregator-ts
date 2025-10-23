@@ -20,7 +20,7 @@ export async function getFeedById(id: string) {
   return firstOrUndefined(result);
 }
 
-export async function getFeedByUrl(url: string) {
+export async function getFeedByURL(url: string) {
   const result = await db.select().from(feeds).where(eq(feeds.url, url));
   return firstOrUndefined(result);
 }

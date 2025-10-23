@@ -8,7 +8,11 @@ import { handlerReset } from "./commands/reset";
 import { handlerAgg } from "./commands/agg";
 import { handlerLogin, handlerRegister, handlerUsers } from "./commands/users";
 import { handlerAddFeed, handlerListFeeds } from "./commands/feeds";
-import { handlerFollow, handlerListFeedFollows } from "./commands/feed-follows";
+import {
+  handlerFollow,
+  handlerListFeedFollows,
+  handlerUnfollow,
+} from "./commands/feed-follows";
 
 async function main() {
   // Create command registry
@@ -35,6 +39,11 @@ async function main() {
     commandsRegistry,
     "following",
     middlewareLoggedIn(handlerListFeedFollows)
+  );
+  registerCommand(
+    commandsRegistry,
+    "unfollow",
+    middlewareLoggedIn(handlerUnfollow)
   );
 
   // Get command-line arguments (skip first 2: node and script path)

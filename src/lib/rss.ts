@@ -9,7 +9,7 @@ type RSSFeed = {
   };
 };
 
-type RSSItem = {
+export type RSSItem = {
   title: string;
   link: string;
   description: string;
@@ -73,4 +73,16 @@ export async function fetchFeed(feedURL: string): Promise<RSSFeed> {
       item: adjItems,
     },
   };
+}
+
+export function parsePublishedDate(pubDate: string): Date | null {
+  try {
+    const date = new Date(pubDate);
+    if (isNaN(date.getTime())) {
+      return null;
+    }
+    return date;
+  } catch {
+    return null;
+  }
 }

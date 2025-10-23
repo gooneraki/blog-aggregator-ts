@@ -13,6 +13,7 @@ import {
   handlerListFeedFollows,
   handlerUnfollow,
 } from "./commands/feed-follows";
+import { handlerBrowse } from "./commands/browse";
 
 async function main() {
   // Create command registry
@@ -44,6 +45,11 @@ async function main() {
     commandsRegistry,
     "unfollow",
     middlewareLoggedIn(handlerUnfollow)
+  );
+  registerCommand(
+    commandsRegistry,
+    "browse",
+    middlewareLoggedIn(handlerBrowse)
   );
 
   // Get command-line arguments (skip first 2: node and script path)
